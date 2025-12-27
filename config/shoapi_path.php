@@ -44,7 +44,7 @@ return [
         'get_shipping_document_parameter' => 'POST',
         'create_shipping_document'        => 'POST',
         'get_shipping_document_result'    => 'POST',
-        'download_shipping_document'      => 'POST',
+        'download_shipping_document'      => 'DOWNLOAD',
         'get_tracking_info'               => 'GET',
         'get_address_list'                => 'GET',
         'set_address_config'              => 'POST',

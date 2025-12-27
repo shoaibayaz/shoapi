@@ -75,7 +75,9 @@ class Client
             return $this->http_post($params);
         } elseif ($method === 'ATTACH') { // post with image/video
             return $this->http_attach($params);
-        }
+        } else if ($method === 'DOWNLOAD') {
+			return $this->http_download($params);
+		}
 
         throw new InvalidArgumentException('No method was specified. please open config_path.php');
     }
@@ -146,6 +148,24 @@ class Client
 
         return $this->dataCollect($response->json());
     }
+
+	/**
+	 * Making Requests HTTP Client.
+	 *
+	 * $method DOWNLOAD|POST
+	 * @param array $params
+	 * @return Muhanz\Shoapi\Shoapi;
+	 */
+	protected function http_download(array $params)
+	{
+		$destinationPath = $params['destinationPath'];
+		unset($params['destinationPath']);
+		$url        = $this->signature($params);
+		$response   = Http::withOptions([
+			'sink' => $destinationPath,
+		])->post($url, $params);
+		return $this->dataCollect($response->json());
+	}
 
     /**
      * Making signature API URL.
